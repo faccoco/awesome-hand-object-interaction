@@ -1,8 +1,8 @@
-# Awesome Egocentric Reconstruction
+# Awesome Hand-Object Interaction
 
-A curated list of papers, datasets, codebases, benchmarks, and learning resources for egocentric 3D reconstruction.
+A curated list of papers, datasets, codebases, benchmarks, and learning resources for 3D hand-object interaction reconstruction.
 
-This repository focuses on reconstruction from first-person, head-mounted, body-mounted, hand-held, AR/VR, or wearable cameras, including scene geometry, object geometry, human hands/body, camera trajectory, and interaction-aware reconstruction.
+This repository focuses on reconstructing hands together with the objects they interact with — including hand pose, shape, and mesh, object geometry and 6D pose, contact, and jointly disentangled hand-object reconstruction — from single images and monocular, multi-view, or egocentric video.
 
 ## Contents
 
@@ -10,7 +10,7 @@ This repository focuses on reconstruction from first-person, head-mounted, body-
 - [Papers](#papers)
   - [Single-Image Reconstruction](#single-image-reconstruction)
   - [Monocular Video Reconstruction](#monocular-video-reconstruction)
-  - [Multi-View and Stereo Reconstruction](#multi-view-and-stereo-reconstruction)
+  - [Others](#others)
 - [Contributing](#contributing)
 - [Entry Template](#entry-template)
 
@@ -18,24 +18,19 @@ This repository focuses on reconstruction from first-person, head-mounted, body-
 
 Relevant topics include:
 
-- Egocentric SLAM, visual odometry, and camera tracking
-- Egocentric scene reconstruction and mapping
-- Hand-object and human-object interaction reconstruction
-- Object reconstruction from first-person video
-- Wearable multi-camera, AR/VR, and embodied capture systems
-- Datasets, metrics, protocols, and tools for egocentric reconstruction
+- Joint 3D/4D reconstruction of hands and interacting objects
+- Hand pose, shape, and mesh recovery in interaction settings
+- Template-free and category-agnostic object reconstruction during interaction
+- Contact modeling, grasp-aware and physically consistent reconstruction
+- Hand-object and interactive segmentation
+- Bimanual and dexterous hand-object interaction
+- Datasets, metrics, protocols, and tools for hand-object interaction
 
 ## Papers
 
 Papers are grouped by input type (the view/sequence the method consumes). Add papers in reverse chronological order within each section.
 
 ### Single-Image Reconstruction
-
-- **GraspFoM: Towards Reconstruction-Driven Robotic Grasping with 3D Foundation Priors**  
-  Dongli Wu, Xiaobao Wei, Hao Wang, Qiaochu Dong, Ying Li, Qingpo Wuwu, Ming Lu, and Wufan Zhao. arXiv, 2026.  
-  [[paper](https://arxiv.org/abs/2606.08440)] [[project](https://annike-val.github.io/GraspFoM/)]  
-  Tags: `reconstruction-driven grasping`, `3D foundation priors`, `SAM3D`, `3D Gaussian Splatting`, `mesh reconstruction`, `GraspNet-1B`  
-  <details><summary>Abstract</summary>Robotic grasping under partial observations demands both local contact cues and object-level 3D structure, yet existing geometry-aware approaches treat geometry as an intermediate step rather than a reusable prior. GraspFoM is a unified framework that leverages 3D foundation priors (SAM3D) to produce a shared 3D object latent for both reconstruction and grasp pose prediction. It introduces an anchor-initialized truncated pose-reasoning diffuser that predicts continuous, multimodal grasp poses without relying on discrete grasp candidates. A reconstruction-aware scorer and residual latent updater enable reconstruction and grasping to mutually benefit: reconstruction provides geometric cues while grasp supervision refines the shared object latent toward grasp-relevant affordances. GraspFoM jointly predicts grasps and reconstructs high-fidelity 3D assets in both mesh and 3DGS forms, achieving state-of-the-art results on both tasks with minimal additional trainable parameters.</details>
 
 - **EgoHandICL: Egocentric 3D Hand Reconstruction with In-Context Learning**  
   Binzhu Xie, Shi Qiu, Sicheng Zhang, Yinqiao Wang, Hao Xu, Muzammal Naseer, Chi-Wing Fu, and Pheng-Ann Heng. ICLR, 2026.  
@@ -93,12 +88,6 @@ Papers are grouped by input type (the view/sequence the method consumes). Add pa
   Tags: `hand reconstruction`, `egocentric video`, `monocular video`, `deformable surfel splatting`, `2D Gaussian Splatting`  
   <details><summary>Abstract</summary>MASS reconstructs high-fidelity dynamic hands from egocentric monocular video with a deformable 2D Gaussian surfel representation. It initializes surfels from hand meshes using mesh-aligned Steiner inellipses and refines geometry and texture with Gaussian surfel deformation.</details>
 
-- **DP-DeGauss: Dynamic Probabilistic Gaussian Decomposition for Egocentric 4D Scene Reconstruction**  
-  Tingxi Chen, Zhengxue Cheng, Houqiang Zhong, Su Wang, Rong Xie, and Li Song. arXiv, 2026.  
-  [[paper](https://arxiv.org/abs/2604.07986)]  
-  Tags: `4D scene reconstruction`, `egocentric video`, `3D Gaussian Splatting`, `dynamic-static decomposition`, `hand-object interaction`  
-  <details><summary>Abstract</summary>DP-DeGauss reconstructs dynamic egocentric scenes by decomposing Gaussian primitives into background, hand, and object components with learned category probabilities. It targets challenging first-person videos with occlusion, ego-motion, and hand-object interactions, enabling explicit disentanglement for rendering and editing.</details>
-
 - **ArtHOI: Taming Foundation Models for Monocular 4D Reconstruction of Hand-Articulated-Object Interactions**  
   Zikai Wang, Zhilu Zhang, Yiqing Wang, Hui Li, and Wangmeng Zuo. CVPR Highlight, 2026.  
   [[paper](https://arxiv.org/abs/2603.25791)] [[project](https://arthoi-reconstruction.github.io/)] [[code](https://github.com/hitcs-zikaiwang/ArtHOI-4D-Reconstruction)]  
@@ -116,12 +105,6 @@ Papers are grouped by input type (the view/sequence the method consumes). Add pa
   [[paper](https://arxiv.org/abs/2602.22209)] [[project](https://judyye.github.io/whole-www)]  
   Tags: `egocentric video`, `world-space reconstruction`, `hand-object motion`, `generative motion prior`, `object pose estimation`  
   <details><summary>Abstract</summary>WHOLE reconstructs hands and object motion in a persistent world coordinate frame from egocentric video, given object templates. It learns a joint hand-object motion prior and guides generation at test time with video observations to handle occlusion and out-of-view interactions.</details>
-
-- **DexImit: Learning Bimanual Dexterous Manipulation from Monocular Human Videos**  
-  Juncheng Mu, Sizhe Yang, Yiming Bao, Hojin Bae, Tianming Wei, Linning Xu, Boyi Li, Huazhe Xu, and Jiangmiao Pang. arXiv, 2026.  
-  [[paper](https://arxiv.org/abs/2602.10105)] [[project](https://mujc2021.github.io/deximit/)] [[code](https://github.com/mujc2021/DexImit-Open)]  
-  Tags: `bimanual dexterous manipulation`, `monocular human video`, `hand-object reconstruction`, `robot data generation`, `near-metric scale`, `zero-shot deployment`  
-  <details><summary>Abstract</summary>Data scarcity fundamentally limits the generalization of bimanual dexterous manipulation, as real-world data collection for dexterous hands is expensive and labor-intensive. Human manipulation videos, as a direct carrier of manipulation knowledge, offer significant potential for scaling up robot learning. However, the substantial embodiment gap between human hands and robotic dexterous hands makes direct pretraining from human videos extremely challenging. To bridge this gap and unleash the potential of large-scale human manipulation video data, we propose DexImit, an automated framework that converts monocular human manipulation videos into physically plausible robot data, without any additional information. DexImit employs a four-stage generation pipeline: (1) reconstructing hand-object interactions from arbitrary viewpoints with near-metric scale; (2) performing subtask decomposition and bimanual scheduling; (3) synthesizing robot trajectories consistent with the demonstrated interactions; (4) comprehensive data augmentation for zero-shot real-world deployment. Building on these designs, DexImit can generate large-scale robot data based on human videos, either from the Internet or video generation models. DexImit is capable of handling diverse manipulation tasks, including tool use (e.g., cutting an apple), long-horizon tasks (e.g., making a beverage), and fine-grained manipulations (e.g., stacking cups).</details>
 
 - **ForeHOI: Feed-forward 3D Object Reconstruction from Daily Hand-Object Interaction Videos**  
   Yuantao Chen, Jiahao Chang, Chongjie Ye, Chaoran Zhang, Zhaojie Fang, Chenghong Li, and Xiaoguang Han. CVPR, 2026.  
@@ -147,6 +130,24 @@ Papers are grouped by input type (the view/sequence the method consumes). Add pa
   Tags: `bimanual interaction`, `category-agnostic reconstruction`, `3D Gaussian Splatting`, `monocular video`, `diffusion prior`, `occlusion completion`  
   <details><summary>Abstract</summary>BIGS reconstructs two hands and an unknown interacting object from monocular RGB video with 3D Gaussian Splatting. It uses diffusion-based SDS priors to complete heavily occluded object parts and shared hand Gaussians to accumulate information across both hands.</details>
 
+- **HOLD: Category-agnostic 3D Reconstruction of Interacting Hands and Objects from Video**  
+  Zicong Fan, Maria Parelli, Maria Eleni Kadoglou, Xu Chen, Muhammed Kocabas, Michael J. Black, and Otmar Hilliges. CVPR Highlight, 2024.  
+  [[paper](https://arxiv.org/abs/2311.18448)] [[project](https://zc-alexfan.github.io/hold)] [[code](https://github.com/zc-alexfan/hold)]  
+  Tags: `hand-object interaction`, `monocular video`, `category-agnostic reconstruction`, `articulated implicit model`, `template-free`, `in-the-wild`  
+  <details><summary>Abstract</summary>Since humans interact with diverse objects every day, the holistic 3D capture of these interactions is important to understand and model human behaviour. However, most existing methods for hand-object reconstruction from RGB either assume pre-scanned object templates or heavily rely on limited 3D hand-object data, restricting their ability to scale and generalize to more unconstrained interaction settings. To this end, we introduce HOLD -- the first category-agnostic method that reconstructs an articulated hand and object jointly from a monocular interaction video. We develop a compositional articulated implicit model that can reconstruct disentangled 3D hand and object from 2D images. We also further incorporate hand-object constraints to improve hand-object poses and consequently the reconstruction quality. Our method does not rely on 3D hand-object annotations while outperforming fully-supervised baselines in both in-the-lab and challenging in-the-wild settings. Moreover, we qualitatively show its robustness in reconstructing from in-the-wild videos.</details>
+
+### Others
+
+Adjacent works kept for reference. These are not hand-object interaction reconstruction methods; each is grouped under its category below.
+
+#### Scene Reconstruction
+
+- **DP-DeGauss: Dynamic Probabilistic Gaussian Decomposition for Egocentric 4D Scene Reconstruction**  
+  Tingxi Chen, Zhengxue Cheng, Houqiang Zhong, Su Wang, Rong Xie, and Li Song. arXiv, 2026.  
+  [[paper](https://arxiv.org/abs/2604.07986)]  
+  Tags: `4D scene reconstruction`, `egocentric video`, `3D Gaussian Splatting`, `dynamic-static decomposition`, `hand-object interaction`  
+  <details><summary>Abstract</summary>DP-DeGauss reconstructs dynamic egocentric scenes by decomposing Gaussian primitives into background, hand, and object components with learned category probabilities. It targets challenging first-person videos with occlusion, ego-motion, and hand-object interactions, enabling explicit disentanglement for rendering and editing.</details>
+
 - **DeGauss: Dynamic-Static Decomposition with Gaussian Splatting for Distractor-free 3D Reconstruction**  
   Rui Wang, Quentin Lohmeyer, Mirko Meboldt, and Siyu Tang. ICCV, 2025.  
   [[paper](https://arxiv.org/abs/2503.13176)] [[project](https://batfacewayne.github.io/DeGauss.io/)] [[code](https://github.com/BatFaceWayne/DeGauss)]  
@@ -159,13 +160,19 @@ Papers are grouped by input type (the view/sequence the method consumes). Add pa
   Tags: `monocular video`, `4D reconstruction`, `self-supervised learning`, `dense point clouds`, `egocentric video`  
   <details><summary>Abstract</summary>Egocentric videos provide valuable insights into human interactions with the physical world, which has sparked growing interest in the computer vision and robotics communities. A critical challenge in fully understanding the geometry and dynamics of egocentric videos is dense scene reconstruction. However, the lack of high-quality labeled datasets in this field has hindered the effectiveness of current supervised learning methods. In this work, we aim to address this issue by exploring a self-supervised dynamic scene reconstruction approach. We introduce EgoMono4D, a novel model that unifies the estimation of multiple variables necessary for Egocentric Monocular 4D reconstruction, including camera intrinsic, camera poses, and video depth, all within a fast feed-forward framework. Starting from pretrained single-frame depth and intrinsic estimation model, we extend it with camera poses estimation and align multi-frame results on large-scale unlabeled egocentric videos. We evaluate EgoMono4D in both in-domain and zero-shot generalization settings, achieving superior performance in dense pointclouds sequence reconstruction compared to all baselines. EgoMono4D represents the first attempt to apply self-supervised learning for pointclouds sequence reconstruction to the label-scarce egocentric field, enabling fast, dense, and generalizable reconstruction.</details>
 
-- **HOLD: Category-agnostic 3D Reconstruction of Interacting Hands and Objects from Video**  
-  Zicong Fan, Maria Parelli, Maria Eleni Kadoglou, Xu Chen, Muhammed Kocabas, Michael J. Black, and Otmar Hilliges. CVPR Highlight, 2024.  
-  [[paper](https://arxiv.org/abs/2311.18448)] [[project](https://zc-alexfan.github.io/hold)] [[code](https://github.com/zc-alexfan/hold)]  
-  Tags: `hand-object interaction`, `monocular video`, `category-agnostic reconstruction`, `articulated implicit model`, `template-free`, `in-the-wild`  
-  <details><summary>Abstract</summary>Since humans interact with diverse objects every day, the holistic 3D capture of these interactions is important to understand and model human behaviour. However, most existing methods for hand-object reconstruction from RGB either assume pre-scanned object templates or heavily rely on limited 3D hand-object data, restricting their ability to scale and generalize to more unconstrained interaction settings. To this end, we introduce HOLD -- the first category-agnostic method that reconstructs an articulated hand and object jointly from a monocular interaction video. We develop a compositional articulated implicit model that can reconstruct disentangled 3D hand and object from 2D images. We also further incorporate hand-object constraints to improve hand-object poses and consequently the reconstruction quality. Our method does not rely on 3D hand-object annotations while outperforming fully-supervised baselines in both in-the-lab and challenging in-the-wild settings. Moreover, we qualitatively show its robustness in reconstructing from in-the-wild videos.</details>
+#### Robotic Manipulation
 
-### Multi-View and Stereo Reconstruction
+- **GraspFoM: Towards Reconstruction-Driven Robotic Grasping with 3D Foundation Priors**  
+  Dongli Wu, Xiaobao Wei, Hao Wang, Qiaochu Dong, Ying Li, Qingpo Wuwu, Ming Lu, and Wufan Zhao. arXiv, 2026.  
+  [[paper](https://arxiv.org/abs/2606.08440)] [[project](https://annike-val.github.io/GraspFoM/)]  
+  Tags: `reconstruction-driven grasping`, `3D foundation priors`, `SAM3D`, `3D Gaussian Splatting`, `mesh reconstruction`, `GraspNet-1B`  
+  <details><summary>Abstract</summary>Robotic grasping under partial observations demands both local contact cues and object-level 3D structure, yet existing geometry-aware approaches treat geometry as an intermediate step rather than a reusable prior. GraspFoM is a unified framework that leverages 3D foundation priors (SAM3D) to produce a shared 3D object latent for both reconstruction and grasp pose prediction. It introduces an anchor-initialized truncated pose-reasoning diffuser that predicts continuous, multimodal grasp poses without relying on discrete grasp candidates. A reconstruction-aware scorer and residual latent updater enable reconstruction and grasping to mutually benefit: reconstruction provides geometric cues while grasp supervision refines the shared object latent toward grasp-relevant affordances. GraspFoM jointly predicts grasps and reconstructs high-fidelity 3D assets in both mesh and 3DGS forms, achieving state-of-the-art results on both tasks with minimal additional trainable parameters.</details>
+
+- **DexImit: Learning Bimanual Dexterous Manipulation from Monocular Human Videos**  
+  Juncheng Mu, Sizhe Yang, Yiming Bao, Hojin Bae, Tianming Wei, Linning Xu, Boyi Li, Huazhe Xu, and Jiangmiao Pang. arXiv, 2026.  
+  [[paper](https://arxiv.org/abs/2602.10105)] [[project](https://mujc2021.github.io/deximit/)] [[code](https://github.com/mujc2021/DexImit-Open)]  
+  Tags: `bimanual dexterous manipulation`, `monocular human video`, `hand-object reconstruction`, `robot data generation`, `near-metric scale`, `zero-shot deployment`  
+  <details><summary>Abstract</summary>Data scarcity fundamentally limits the generalization of bimanual dexterous manipulation, as real-world data collection for dexterous hands is expensive and labor-intensive. Human manipulation videos, as a direct carrier of manipulation knowledge, offer significant potential for scaling up robot learning. However, the substantial embodiment gap between human hands and robotic dexterous hands makes direct pretraining from human videos extremely challenging. To bridge this gap and unleash the potential of large-scale human manipulation video data, we propose DexImit, an automated framework that converts monocular human manipulation videos into physically plausible robot data, without any additional information. DexImit employs a four-stage generation pipeline: (1) reconstructing hand-object interactions from arbitrary viewpoints with near-metric scale; (2) performing subtask decomposition and bimanual scheduling; (3) synthesizing robot trajectories consistent with the demonstrated interactions; (4) comprehensive data augmentation for zero-shot real-world deployment. Building on these designs, DexImit can generate large-scale robot data based on human videos, either from the Internet or video generation models. DexImit is capable of handling diverse manipulation tasks, including tool use (e.g., cutting an apple), long-horizon tasks (e.g., making a beverage), and fine-grained manipulations (e.g., stacking cups).</details>
 
 - **Stereo Hand-Object Reconstruction for Human-to-Robot Handover**  
   Yik Lung Pang, Alessio Xompero, Changjae Oh, and Andrea Cavallaro. IEEE Robotics and Automation Letters, 2025.  
@@ -193,7 +200,7 @@ Paper entry:
 - **Paper Title**  
   Author A, Author B, and Author C. Venue, Year.  
   [[paper](https://example.com)] [[project](https://example.com)] [[code](https://github.com/example/repo)] [[data](https://example.com)]  
-  Tags: `egocentric video`, `scene reconstruction`
+  Tags: `hand-object interaction`, `monocular video`
 ```
 
 Dataset entry:
